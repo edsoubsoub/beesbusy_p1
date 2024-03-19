@@ -1,1 +1,1 @@
-# beesbusy_p1
+# Application Web "demo" de gestion d'utilisateurs.
