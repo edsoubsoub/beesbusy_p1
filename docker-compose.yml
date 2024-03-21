@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./database:/data
+    command: python manage.py runserver 0.0.0.0:8000
+    # command: >
+    #   sh -c "python manage.py collectstatic --noinput &&
+    #          python manage.py migrate &&
+    #          python manage.py runserver 0.0.0.0:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - sqlite-container
+    container_name: beesbusy-backend
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    container_name: beesbusy-frontend
+
+  sqlite-container:
+    image: alpine:latest
+    volumes:
+      - ./database:/data
+    command: sh -c "apk --no-cache add sqlite && cp /data/initial-db.sqlite /data/db.sqlite && sqlite3 /data/db.sqlite < /data/init.sql && tail -f /dev/null"
+    container_name: sqlite-container
+
+  sqlitebrowser:
+    image: linuxserver/sqlitebrowser
+    ports:
+      - "3001:3000"
+    depends_on:
+      - sqlite-container
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - ENABLE_UWSGI=true
+    volumes:
+      - ./database:/data
+    container_name: sqlite-browser

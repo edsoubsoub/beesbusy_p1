@@ -1,0 +1,7 @@
+# Ignorer les fichiers générés
+*.pyc
+*.sqlite3
+
+# Ignorer les répertoires générés
+__pycache__/
+frontend/node_modules/
