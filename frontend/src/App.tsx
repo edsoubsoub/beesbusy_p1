@@ -37,7 +37,7 @@ const App: React.FC<{}> = () => {
                 <div className="dropdown pb-4">
                     <a href="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://avatars.githubusercontent.com/u/10771601?v=4" alt="hugenerd" width="30" height="30" className="rounded-circle" />
-                        <span className="d-none d-sm-inline mx-1">Edouard Soubrier</span>
+                        <span className="d-none d-sm-inline mx-1">Eddy Soub</span>
                     </a>
                     <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a className="dropdown-item" href="#">Settings</a></li>
